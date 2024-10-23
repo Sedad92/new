@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+    overflow-x: hidden;
+}
+
+@font-face {
+    font-family: ubnta;
+    src: url('ubnta.ttf');
+}
+
+.carousel-inner img {
+    width: 100%;
+    max-height: 300px; /* Set the max height for the carousel images */
+    object-fit: cover;
+}
+
+.menu-section {
+    display: flex;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px 0;
+    white-space: nowrap; /* Prevent menu items from wrapping */
+}
+
+.menu-item {
+    flex: 0 0 auto;
+    margin: 0 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.menu-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #704214;
+}
+
+.header-logo img {
+    height: 50px;
+    border-radius: 50%;
+}
+
+.header-lang a {
+    color: #F5DEB3;
+    margin-left: 10px;
+}
+
+.menu-cards {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap onto the next line */
+    justify-content: center; /* Center items */
+    padding: 20px;
+    color: #fff;
+}
+
+.menu-cards .card {
+    background-color: #704214;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px; /* Add margin around cards */
+    width: calc(50% - 20px); /* Two cards per row */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Softer box shadow */
+    display: flex; /* Use flexbox for card content */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-between; /* Space between items */
+    transition: transform 0.3s; /* Smooth transition for hover effect */
+}
+
+.menu-cards .card:hover {
+    transform: scale(1.05); /* Scale up the card on hover */
+}
+
+.menu-cards .card-content {
+    flex-grow: 1; /* Allow content to grow and fill space */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    padding: 15px; /* Keep padding */
+}
+
+.menu-cards .card-img {
+    width: 100%; /* Set to full width of card */
+    height: 150px; /* Fixed height for images */
+    object-fit: cover; /* Ensure image covers the area */
+    border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+
+.menu-cards .card-text {
+    text-align: right; /* Center-align text */
+
+}
+
+.menu-cards .card-text h5 {
+    color: #F8F4E1;
+    font-size:18px;
+    margin: 10px 0; /* Add some margin for spacing */
+}
+
+.menu-cards .card-text p {
+    margin: 0;
+    color: #F5DEB3;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .menu-cards .card {
+        width: calc(50% - 20px); /* Ensure two cards per row on tablets and smaller devices */
+    }
+}
+
+@media (min-width: 769px) {
+    .menu-cards .card {
+        width: calc(50% - 20px); /* Two cards per row on larger devices */
+    }
+}
+
+/* Footer styles */
+.footer {
+    background-color: #543310;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+}
+
+.map-container iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.7); /* Black color with 70% opacity */
+    padding: 10px;
+    color: white; /* Text color */
+}
+
+.category-container {
+    margin-bottom: 20px; /* Space between categories */
+}
+.category-title {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-size: 24px; /* Adjust font size as needed */
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove padding */
+    position: relative; /* Position for the pseudo-elements */
+    color: #fff; /* Text color */
+    background-color: #704214; /* Background color of the title */
+    padding: 0 20px; /* Add some horizontal padding for spacing */
+    z-index: 1; /* Ensure text is above the borders */
+}
+
+.category-title::before,
+.category-title::after {
+    content: "";
+    width: 70px; /* Width of the borders */
+    height: 4px; /* Height of the borders */
+    background-color: #f5deb3; /* Color of the borders */
+}
+
+.category-title::before {
+    margin-right: 10px; /* Space between the left border and the text */
+}
+
+.category-title::after {
+    margin-left: 10px; /* Space between the text and the right border */
+}
+
+.items-container {
+    display: flex; /* Use flexbox to display items in a row */
+    justify-content: center; /* Center items horizontally */
+    flex-wrap: wrap; /* Wrap items if necessary */
+}
+
+.card {
+    margin: 10px; /* Space between cards */
+    width: calc(50% - 20px); /* Set to two cards per row on all devices */
+    text-align: center; /* Center text in cards */
+}
+
+</style>
+</head>
+
+<body>
+
+    <header>
+    <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+ 
+    <div class="language-dropdown">   <a href="index.html">
+        <i class="fas fa-arrow-left"></i> <!-- This is the backward arrow icon -->
+    </a>
+</body>
+<style>
+    a {
+    color: #F5DEB3; /* Change color */
+    text-decoration: none; /* Remove underline */
+}
+
+.fas.fa-arrow-left {
+    margin-right: 20px;
+    font-size: 24px; /* Adjust size as needed */
+}
+
+</style>
+    <button class="btn" id="dropdownMenuButton">
+    
+    زمان <i class="fas fa-sort-down"></i>
+
+    </button>
+    <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#" id="lang-en">English</a>
+        <a href="#" id="lang-ar">Arabic</a>
+        <a href="#" id="lang-ku">Kurdish</a>
+    </div>
+</div>
+
+        <div class="header-logo">
+            <img src="https://images.unsplash.com/photo-1619454016518-697bc231e7cb?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Restaurant Logo">
+        </div>
+      
+        <style>
+           
+           .language-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.btn {
+    background-color: #A66E38; /* Secondary color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #825B32; /* Darker shade on hover */
+}
+
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-menu a {
+    color: #825B32;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1; /* Light gray on hover */
+}
+
+            body {
+                background-color: #704214;
+                font-family: 'Ubuntu';
+                color: #333;
+       
+            }
+.menu-text,
+.header-lang a,
+.caption-en,
+.caption-ar,
+.caption-ku,
+.text-en,
+.text-ar,
+.category-title,
+h5,p,
+.btn,
+.text-ku {
+    font-family: 'ubnta', sans-serif;
+}
+
+            /* Additional styling for better contrast */
+            .menu-item p,
+            .card-text h5 {
+                color: #F5DEB3;
+                /* Slightly darker text for menu items and card titles */
+            }
+
+            .menu-item p:hover,
+            .card-text h5:hover {
+                color: #F5DEB3;
+                /* Change color on hover */
+            }
+
+            /* Footer styles */
+            .footer {
+                background-color: #543310;
+                /* Dark background for the footer */
+                color: #F8F4E1;
+                /* White text color */
+            }
+
+
+            .menu-item img {
+                width: 80px;
+                /* Decreased from 150px */
+                height: 80px;
+                /* Decreased from 150px */
+                object-fit: cover;
+            }
+
+            .menu-item.active {
+                border-bottom: 2px solid #F5DEB3;
+                /* Blue underline to indicate active state */
+                color: #F5DEB3;
+                /* Change text color for the active item */
+            }
+
+            .menu-item.active p {
+                color: #F5DEB3;
+                /* Ensure the text inside the item changes color too */
+            }
+            
+        </style>
+    </header>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100"
+                src="https://img.freepik.com/free-photo/tabletop-looking-out-empty-restaurant_23-2147701293.jpg?t=st=1716710021~exp=1716713621~hmac=ad1ae9974e1aed43ee818b63a954ab4475740d86f6a5f2193a6862551c207d7d&w=740"
+                alt="First slide">
+            <div class="carousel-caption">
+                <h5 class="caption-en">First Slide Caption</h5>
+                <h5 class="caption-ar" style="display:none;">عنوان الشريحة الأولى</h5>
+                <h5 class="caption-ku" style="display:none;">ناونیشانی لەیەنە یەکەمی</h5>
+                <p class="text-en">This is some text related to the first caro.</p>
+                <p class="text-ar" style="display:none;">هذا نص يتعلق بالشريحة الأولى.</p>
+                <p class="text-ku" style="display:none;">ئەمە نوسەیەکی پەیوەندیدار بە شێوەی یەکەمی.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100"
+                src="https://img.freepik.com/premium-photo/luxurious-modern-restaurant-evening-lighting-with-blue-beige-chairs-laid-out-tables-white-columns-mosaic-tile-gold-plated-pendant-lights-3d-rendering_295714-3982.jpg?w=740"
+                alt="Second slide">
+            <div class="carousel-caption">
+                <h5 class="caption-en">Second Slide Caption</h5>
+                <h5 class="caption-ar" style="display:none;">عنوان الشريحة الثانية</h5>
+                <h5 class="caption-ku" style="display:none;">ناونیشانی لەیەنە دووەم</h5>
+                <p class="text-en">This is some text related to the se.</p>
+                <p class="text-ar" style="display:none;">هذا نص يتعلق بالشريحة الثانية.</p>
+                <p class="text-ku" style="display:none;">ئەمە نوسەیەکی پەیوەندیدار بە شێوەی دووەم.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100"
+                src="https://img.freepik.com/free-photo/freshly-italian-pizza-with-mozzarella-cheese-slice-generative-ai_188544-12347.jpg?t=st=1716710252~exp=1716713852~hmac=b1a4f71691515ac1471ec6c7a7a09cb4ef898e30e33b7e1ab7d08b7ebd3ce445&w=996"
+                alt="Third slide">
+            <div class="carousel-caption">
+                <h5 class="caption-en">Third Slide Caption</h5>
+                <h5 class="caption-ar" style="display:none;">عنوان الشريحة الثالثة</h5>
+                <h5 class="caption-ku" style="display:none;">ناونیشانی لەیەنە سێیەمی</h5>
+                <p class="text-en">This is some text related to the.</p>
+                <p class="text-ar" style="display:none;">هذا نص يتعلق بالشريحة الثالثة.</p>
+                <p class="text-ku" style="display:none;">ئەمە نوسەیەکی پەیوەندیدار بە شێوەی سێیەمی.</p>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+<section class="menu-section" id="menu">
+    <div class="menu-item" data-category="breakfast">
+        <img src="b2.png" alt="Breakfast">
+        <p class="menu-text" data-key="breakfast">Breakfast</p>
+    </div>
+    <div class="menu-item" data-category="pizza">
+        <img src="p2.png" alt="Pizza">
+        <p class="menu-text" data-key="pizza">Pizza</p>
+    </div>
+    <div class="menu-item" data-category="drinks">
+        <img src="drinks1.png" alt="Drinks">
+        <p class="menu-text" data-key="drinks">Drinks</p>
+    </div>
+    <div class="menu-item" data-category="desserts">
+        <img src="desert1.png" alt="Desserts">
+        <p class="menu-text" data-key="desserts">Desserts</p>
+    </div>
+    <div class="menu-item" data-category="salads">
+        <img src="salad1.png" width="70" style="display:block; margin:5px auto" alt="">
+        <p class="menu-text" data-key="salads">Salads</p>
+    </div>
+</section>
+
+
+
+    <section class="menu-cards"></section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="menuModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-img-container" style="text-align: center; margin-bottom: 20px;">
+                        <img id="modal-img" src="" alt="Item image" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div id="modal-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="map-container">
+        <!-- Google Maps iframe for Sipan House location -->
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13520.153451372988!2d42.97330207591446!3d36.85341299349191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40088c16a61026bd%3A0xaa59fd7b0d80c800!2sSipan%20House!5e0!3m2!1sen!2siq!4v1716799216097!5m2!1sen!2siq"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <style>
+            .map-container {
+                margin-top: 50px;
+            }
+        </style>
+    </div>
+    <footer class="footer">
+        <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-viber"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="contact-info">
+            <a href="#" class="location-icon"><i class="fas fa-map-marker-alt"></i> DUHOK, K.R.O</a>
+            <a href="tel:+1234567890" class="phone-icon"><i class="fas fa-phone"></i> +1234567890</a>
+        </div><br>
+        <div class="copyright">
+            &copy; Developed By<a href="#">Sedad Karam</a>
+        </div>
+    </footer>
+
+    <style>
+        .footer {
+            /* Existing footer styles */
+        }
+
+        .social-icons {
+            margin-bottom: 10px;
+        }
+
+        .social-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #fff;
+        }
+
+        .social-icon:hover {
+            color: #F5DEB3;
+            /* Change color on hover */
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const menuData = {
+            // English menu data
+            breakfast: [
+                { name: 'Pancakes', description: 'Fluffy pancakes with syrup', price: '$5', image: 'https://plus.unsplash.com/premium_photo-1663858367001-89e5c92d1e0e?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Pancakes', description: 'Fluffy pancakes with syrup', price: '$5', image: 'https://plus.unsplash.com/premium_photo-1663858367001-89e5c92d1e0e?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Pancakes', description: 'Fluffy pancakes with syrup', price: '$5', image: 'https://plus.unsplash.com/premium_photo-1663858367001-89e5c92d1e0e?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Omelette', description: 'Three-egg omelette with cheese', price: '$7', image: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?q=80&w=1898&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+            pizza: [
+                { name: 'Margherita', description: 'Classic Margherita pizza', price: '$10', image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Margherita', description: 'Classic Margherita pizza', price: '$10', image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Margherita', description: 'Classic Margherita pizza', price: '$10', image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Pepperoni', description: 'Pepperoni pizza with extra cheese', price: '$12', image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+            pizza_ar: [
+                { name: 'مارغريتا', description: 'بيتزا مارغريتا الكلاسيكية', price: '$10', image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'بيبروني', description: 'بيتزا بيبروني مع الجبن الإضافي', price: '$12', image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+
+            pizza_ku: [
+                { name: 'مارغریتا', description: 'مارغریتای کلاسیکییە', price: '$10', image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'پەپەرۆنی', description: 'پەپەرۆنییەکە با زیادکردنی پەنیر', price: '$12', image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+
+
+
+
+            // Arabic menu data
+            breakfast_ar: [
+                { name: 'بانكيك', description: 'بانكيك هشة مع شراب', price: '$5', image: 'https://plus.unsplash.com/premium_photo-1663858367001-89e5c92d1e0e?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'أومليت', description: 'أومليت من ثلاث بيضات مع جبن', price: '$7', image: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?q=80&w=1898&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+            // Kurdish menu data
+            breakfast_ku: [
+                { name: 'پانکیک', description: 'پانکیک با سوره', price: '$5', image: 'https://plus.unsplash.com/premium_photo-1663858367001-89e5c92d1e0e?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'ئۆملێت', description: 'ئۆملێت لەسێ تای ئۆژ بە پەنیر', price: '$7', image: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?q=80&w=1898&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+
+
+            drinks: [
+                { name: 'Coca-Cola', description: 'Refreshing Coca-Cola', price: '$2', image: 'https://images.unsplash.com/photo-1592892111425-15e04305f961?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Coca-Cola', description: 'Refreshing Coca-Cola', price: '$2', image: 'https://images.unsplash.com/photo-1592892111425-15e04305f961?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Coca-Cola', description: 'Refreshing Coca-Cola', price: '$2', image: 'https://images.unsplash.com/photo-1592892111425-15e04305f961?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Orange Juice', description: 'Freshly squeezed orange juice', price: '$3', image: 'https://plus.unsplash.com/premium_photo-1675667381451-be2fc08a122e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+            drinks_ar: [
+                { name: 'كوكا كولا', description: 'كوكا كولا منعشة', price: '$2', image: 'https://images.unsplash.com/photo-1592892111425-15e04305f961?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'عصير البرتقال', description: 'عصير البرتقال الطازج المعصور', price: '$3', image: 'https://plus.unsplash.com/premium_photo-1675667381451-be2fc08a122e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+            drinks_ku: [
+                { name: 'کۆکا کۆلا', description: 'کۆکا کۆلا خاوەنی', price: '$2', image: 'https://images.unsplash.com/photo-1592892111425-15e04305f961?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'ئامێرە قولێ', description: 'ئامێرە قولێ تازە', price: '$3', image: 'https://plus.unsplash.com/premium_photo-1675667381451-be2fc08a122e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+
+
+
+
+            desserts: [
+                { name: 'Chocolate Cake', description: 'Rich chocolate cake', price: '$6', image: 'https://images.unsplash.com/photo-1517427294546-5aa121f68e8a?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Chocolate Cake', description: 'Rich chocolate cake', price: '$6', image: 'https://images.unsplash.com/photo-1517427294546-5aa121f68e8a?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Chocolate Cake', description: 'Rich chocolate cake', price: '$6', image: 'https://images.unsplash.com/photo-1517427294546-5aa121f68e8a?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'Ice Cream', description: 'Vanilla ice cream with toppings', price: '$4', image: 'https://plus.unsplash.com/premium_photo-1661541172813-261776d4bde0?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+            desserts_ar: [
+                { name: 'كيك الشوكولاتة', description: 'كيك الشوكولاتة الغنية', price: '$6', image: 'https://images.unsplash.com/photo-1517427294546-5aa121f68e8a?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'آيس كريم', description: 'آيس كريم الفانيليا مع الحشوات', price: '$4', image: 'https://plus.unsplash.com/premium_photo-1661541172813-261776d4bde0?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+            desserts_ku: [
+                { name: 'کەیکی شۆکۆلاتە', description: 'کەیکی شۆکۆلاتە باڵا', price: '$6', image: 'https://images.unsplash.com/photo-1517427294546-5aa121f68e8a?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { name: 'ئایس کریم', description: 'ئایس کریم وانیلە بە تەختەکان', price: '$4', image: 'https://plus.unsplash.com/premium_photo-1661541172813-261776d4bde0?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+            ],
+
+
+
+
+            // Add more menu categories with their Arabic translations if needed
+        };
+
+        let currentCategories = ['breakfast', 'pizza', 'drinks', 'desserts', 'salads']; // Track all categories
+let currentLanguage = 'en'; // Track the current language
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menuItemsContainer = document.querySelector('.menu-cards');
+
+    // Retrieve the selected language from localStorage
+    let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+
+    function getMenuCategory(category, language) {
+        return language === 'en' ? category : `${category}_${language}`;
+    }
+
+    function displayMenu(categories) {
+        menuItemsContainer.innerHTML = '';
+        categories.forEach(category => {
+            const categoryContainer = document.createElement('div');
+            categoryContainer.className = 'category-container';
+
+            const heading = document.createElement('h3');
+            heading.textContent = translations[currentLanguage][category];
+            heading.className = 'category-title';
+            categoryContainer.appendChild(heading);
+
+            const items = menuData[getMenuCategory(category, currentLanguage)];
+            const itemsContainer = document.createElement('div');
+            itemsContainer.className = 'items-container';
+
+            items.forEach(menuItem => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const cardContent = `
+                    <div class="card-content">
+                        <div class="card-text">
+                            <img src="${menuItem.image}" alt="${menuItem.name}" class="card-img">
+                            <div class="text-container">
+                                <div class="text-border">
+                                    <h5>${menuItem.name}</h5>
+                                </div>
+                                <p><strong>${menuItem.price}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                card.innerHTML = cardContent;
+                card.querySelector('.card-img').addEventListener('click', () => {
+                    document.getElementById('modal-img').src = menuItem.image;
+                    document.getElementById('modal-text').innerHTML = `
+                        <h5>${menuItem.name}</h5>
+                        <p>${menuItem.description}</p>
+                        <p><strong>${menuItem.price}</strong></p>
+                    `;
+                    $('#menuModal').modal('show');
+                });
+                itemsContainer.appendChild(card);
+            });
+
+            categoryContainer.appendChild(itemsContainer);
+            menuItemsContainer.appendChild(categoryContainer);
+        });
+    }
+
+    // Existing menu item and language button logic...
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const category = item.getAttribute('data-category');
+            displayMenu([category]);
+            menuItems.forEach(menuItem => menuItem.classList.remove('active'));
+            item.classList.add('active');
+        });
+    });
+
+    // Language buttons (optional if you want to change language on the restaurant page)
+    document.getElementById('lang-en').addEventListener('click', () => {
+        currentLanguage = 'en';
+        localStorage.setItem('selectedLanguage', 'en');
+        displayMenu(currentCategories);
+    });
+
+    document.getElementById('lang-ar').addEventListener('click', () => {
+        currentLanguage = 'ar';
+        localStorage.setItem('selectedLanguage', 'ar');
+        displayMenu(currentCategories);
+    });
+
+    document.getElementById('lang-ku').addEventListener('click', () => {
+        currentLanguage = 'ku';
+        localStorage.setItem('selectedLanguage', 'ku');
+        displayMenu(currentCategories);
+    });
+
+    displayMenu(currentCategories);
+});
+
+// Translations for menu items
+const translations = {
+    en: {
+        breakfast: 'Breakfast',
+        pizza: 'Pizza',
+        drinks: 'Drinks',
+        desserts: 'Desserts',
+        salads: 'Salads',
+    },
+    ar: {
+        breakfast: 'فطور',
+        pizza: 'بيتزا',
+        drinks: 'مشروبات',
+        desserts: 'حلويات',
+        salads: 'سلطات',
+    },
+    ku: {
+        breakfast: 'تێشت',
+        pizza: 'پیزا',
+        drinks: 'ڤەخارن',
+        desserts: 'شریناهی',
+        salads: 'زەڵاتە',
+    }
+};
+
+// Get query parameters from URL
+// Set language and update content
+function setLanguage(lang) {
+    localStorage.setItem('selectedLanguage', lang); // Store the selected language
+    changeLanguage(lang); // Update the language without redirecting
+}
+
+// Change language function
+function changeLanguage(lang) {
+    const menuItems = document.querySelectorAll('.menu-text');
+
+    // Update menu items
+    menuItems.forEach(item => {
+        const key = item.getAttribute('data-key');
+        item.textContent = translations[lang][key];
+    });
+
+    // Update additional text elements
+    const captions = document.querySelectorAll('.caption-en, .caption-ar, .caption-ku');
+    captions.forEach(el => {
+        const langClass = el.classList.contains('caption-en') ? 'en' :
+                          el.classList.contains('caption-ar') ? 'ar' : 'ku';
+        el.style.display = lang === langClass ? 'block' : 'none';
+    });
+
+    const texts = document.querySelectorAll('.text-en, .text-ar, .text-ku');
+    texts.forEach(el => {
+        const langClass = el.classList.contains('text-en') ? 'en' :
+                          el.classList.contains('text-ar') ? 'ar' : 'ku';
+        el.style.display = lang === langClass ? 'block' : 'none';
+    });
+}
+
+// Load the selected language from localStorage on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'ku'; // Default to Kurdish
+    changeLanguage(savedLanguage); // Apply the saved language on load
+});
+
+// Add event listeners for language dropdown
+document.querySelectorAll('.dropdown-menu a').forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+        const selectedLang = this.id.split('-')[1]; // Get the language code
+        setLanguage(selectedLang); // Update language
+    });
+});
+
+// Toggle dropdown visibility
+document.getElementById("dropdownMenuButton").addEventListener("click", function() {
+    const dropdown = document.getElementById("dropdownMenu");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+});
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('#dropdownMenuButton')) {
+        const dropdowns = document.getElementsByClassName("dropdown-menu");
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.style.display === "block") {
+                openDropdown.style.display = "none";
+            }
+        }
+    }
+};
+
+// Set default language (this will be overridden by the saved language)
+changeLanguage('en'); // This line can be removed since we load saved language above
+
+
+    </script>
+
+</body>
+
+</html>
