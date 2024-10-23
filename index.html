@@ -1,0 +1,291 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Restaurant Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome -->
+        <style>
+        @font-face {
+            font-family: ubnta;
+            src: url('ubnta.ttf');
+        }
+        body {
+    font-family: ubnta;
+    background-image: url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff;
+    text-align: center;
+    padding-top: 50px;
+    animation: backgroundMove 30s linear infinite; /* Animation applied */
+}
+
+@keyframes backgroundMove {
+    0% {
+        background-position: 0% 0%; /* Start position */
+    }
+    100% {
+        background-position: 100% 100%; /* End position */
+    }
+}
+
+
+        .animated-text {
+            margin-top: 10px;
+            font-size: 36px; /* Adjust font size */
+            font-weight: bold; /* Make text bold */
+            animation: fadeIn 2s ease-in-out infinite alternate; /* Animation */
+            margin-bottom: 20px; /* Add bottom margin */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better readability */
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .welcome-text {
+            font-size: 24px; /* Adjust font size */
+            margin: 60px 0 20px; /* Add large margin-top for spacing */
+        }
+
+        .btn-menu, .btn-language {
+            background-color: #543310; /* Dark brown button color */
+            color: #fff; /* White text color */
+            padding: 10px 20px; /* Adjust padding */
+            border: none;
+            border-radius: 8px; /* Rounded button */
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth background color transition */
+            margin: 5px auto; /* Add margin and center align */
+            display: block; /* Display buttons as block */
+            font-size: 18px; /* Increase button text size */
+        }
+
+        .btn-menu:hover, .btn-language:hover {
+            background-color: #704214; /* Darker brown on hover */
+        }
+
+        .btn-language {
+            width: 80%; /* Full width for buttons */
+            max-width: 300px; /* Maximum width for buttons */
+            margin-top: 20px; /* Add top margin for better centering */
+        }
+
+        .btn-language-small {
+            width: 48%; /* 50% of the English button */
+            max-width: 140px; /* Maximum width */
+            margin: 5px 2px; /* Add margin */
+        }
+
+        .feedback-btn {
+            background-color: #543310; /* Dark brown button color */
+            color: #fff; /* White text color */
+            padding: 10px 20px; /* Increase padding */
+            border: none;
+            border-radius: 20px; /* Rounded button */
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth background color transition */
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px; /* Increase font size */
+        }
+
+        .feedback-btn:hover {
+            background-color: #704214; /* Darker brown on hover */
+        }
+
+        .footer {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for footer */
+            color: #fff; /* White text color */
+            padding: 10px 20px; /* Adjust padding */
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px; /* Adjust font size */
+        }
+
+        .footer a {
+            color: #f0a500; /* Link color */
+            text-decoration: none;
+            margin-left: 5px; /* Spacing between text and link */
+        }
+
+        .footer a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .animated-text {
+                font-size: 30px; /* Adjust font size for smaller screens */
+            }
+
+            .welcome-text {
+                font-size: 20px; /* Adjust font size for smaller screens */
+                margin: 40px 0 20px; /* Adjust margin-top for spacing */
+            }
+
+            .btn-menu, .btn-language {
+                padding: 8px 16px; /* Adjust padding for smaller screens */
+                font-size: 16px; /* Adjust font size for buttons */
+            }
+
+            .btn-language-small {
+                width: 48%;
+                max-width: 140px;
+            }
+
+            .feedback-btn {
+                top: 10px;
+                right: 10px;
+                padding: 8px 16px; /* Increase padding */
+                font-size: 16px; /* Adjust font size */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .animated-text {
+                font-size: 24px; /* Adjust font size for very small screens */
+            }
+
+            .welcome-text {
+                font-size: 18px; /* Adjust font size for very small screens */
+                margin: 100px 0 20px; /* Increased margin-top for more spacing */
+            }
+
+            .btn-menu, .btn-language {
+                padding: 6px 12px; /* Adjust padding for very small screens */
+                font-size: 16px; /* Adjust font size for buttons */
+            }
+
+            .btn-language-small {
+                width: 45%;
+                max-width: 155px;
+            }
+
+            .feedback-btn {
+                top: 5px;
+                right: 5px;
+                padding: 8px 16px; /* Increase padding */
+                font-size: 16px; /* Adjust font size */
+            }
+
+            .footer {
+                padding: 10px; /* Adjust padding for very small screens */
+                font-size: 12px; /* Adjust font size for very small screens */
+            }
+        }
+
+        .wl {
+            margin-top: 20px; /* Adjusted margin-top */
+        }
+    </style>
+    </head>
+    <body>
+
+        <!-- Feedback Button -->
+        <button class="feedback-btn" onclick="openFeedbackPage()">
+            <i class="fas fa-comment-alt"></i> Feedback
+        </button>
+
+        <div class="content-wrapper">
+            <!-- Animated Restaurant Name -->
+            <div class="animated-text">Duhok Restaurant</div>
+
+            <!-- Welcome Text -->
+            <div class="wl">
+                <div class="welcome-text">
+                    <!-- <p>Welcome to Our Restaurant</p> -->
+                </div>
+
+                <!-- Language Buttons -->
+                <!-- Language Buttons -->
+                <div class="language-buttons text-center">
+                <a href="resturant.html?lang=ku" class="btn btn-warning btn-lg">Menu</a>
+
+    <div style="margin-top: 10px;">
+        <!-- <a href="resturant.php?lang=ar" class="btn btn-warning btn-small">العربی</a>
+            <a href="resturant.php?lang=en" class="btn btn-warning btn-small">English</a> -->
+
+    </div>
+</div>
+
+<style>
+ .language-buttons .btn {
+    border: none;
+    background-color: #543310; /* Dark brown button color */
+    color: #fff; /* White text color */
+    margin: 5px 0; /* Space between buttons */
+    width: 200px; /* Set fixed width for the English button */
+}
+
+.language-buttons .btn-small {
+    width: 150px; /* 50% width of the English button */
+}
+
+.language-buttons .btn:hover {
+    background-color: #704214; /* Darker brown on hover */
+}
+
+
+</style>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            Developed by <a href="https://sedadkaram.com" target="_blank">Sedad Karam</a>
+        </footer>
+
+        <!-- JavaScript to Open Menu and Feedback Pages -->
+        <script>
+            function openMenuPage() {
+                window.location.href = "resturant.html"; // Change to your actual menu page
+            }
+
+            function openFeedbackPage() {
+                window.location.href = "feedback.html"; // Change to your actual feedback page
+            }
+
+            function changeLanguage(lang) {
+    // Redirect to restaurant page with selected language
+    window.location.href = `resturant.html?lang=${lang}`;
+}
+
+document.getElementById('lang-en').addEventListener('click', () => {
+    localStorage.setItem('selectedLanguage', 'en');
+    // Optionally, navigate to restaurant.php
+    window.location.href = 'restaurant.html';
+});
+
+document.getElementById('lang-ar').addEventListener('click', () => {
+    localStorage.setItem('selectedLanguage', 'ar');
+    window.location.href = 'restaurant.html';
+});
+
+document.getElementById('lang-ku').addEventListener('click', () => {
+    localStorage.setItem('selectedLanguage', 'ku');
+    window.location.href = 'restaurant.html';
+});
+
+            
+        </script>
+    <script>
+        
+            function setLanguage(lang) {
+                localStorage.setItem('language', lang);
+                window.location.href = 'resturant.html';
+            }
+        </script>
+        
+    </body>
+    </html>
