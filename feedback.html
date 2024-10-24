@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome -->
+    <style>
+        @font-face {
+            font-family: ubnta;
+            src: url('ubnta.ttf');
+        }
+        body {
+            background-color: #543310; /* Dark red background color */
+            color: #fff; /* White text color */
+            font-family: ubnta;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .feedback-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 10px;
+        }
+
+        .feedback-section {
+            background-color: #74512D; /* Red section background color */
+            border: 1px solid #fff;
+            border-radius: 10px;
+            margin: 20px 0;
+            padding: 20px;
+        }
+
+        .feedback-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stars i {
+            font-size: 30px;
+            color: #ffd700; /* Light grey star color */
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .stars i:hover,
+        .stars i.active {
+            color: #ffd700; /* Gold star color */
+        }
+
+        .top-bar {
+            background-color: #74512D; /* Darker red for top bar */
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar .back-button {
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer; /* Add cursor pointer for hover effect */
+        }
+
+        .top-bar .language-select {
+            background-color: #543310; /* Red button background */
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .top-bar .language-select:focus {
+            outline: none;
+        }
+
+        .top-bar .icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .top-bar .icons i {
+            font-size: 20px;
+            color: #fff;
+        }
+
+        /* Custom style for text input */
+        .manager-feedback-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            background-color: #543310; /* Same as body background */
+            color: #F8F4E1; /* White text color */
+        }
+        .manager-feedback-input::placeholder {
+            color: #F8F4E1;
+        }
+        
+        /* Button styles */
+        .btn {
+            border: none;
+            background-color: #F8F4E1;
+            color: #74512D;
+            font-weight: bold;
+            border: 1px solid #c0c0c0;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #74512D;
+            border: none;
+            color: #F8F4E1;
+        }
+
+        .btn:active {
+            background-color: #543310;
+            border-color: #543310;
+            color: #fff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="#" class="back-button"><i class="fas fa-arrow-left"></i></a>
+        <div class="icons">
+            <select class="language-select" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="ar">العربية</option> <!-- Arabic -->
+                <option value="ku">کوردی</option> <!-- Kurdish -->  
+                
+                <!-- Add other languages here -->
+            </select>
+        </div>
+    </div>
+    <div class="container">
+        <div class="feedback-header">Feedback</div>
+        <div class="feedback-section">
+            <h3 id="staff-heading">Staff</h3>
+            <div class="stars" data-section="staff">
+                <i class="far fa-star" data-rating="1"></i>
+                <i class="far fa-star" data-rating="2"></i>
+                <i class="far fa-star" data-rating="3"></i>
+                <i class="far fa-star" data-rating="4"></i>
+                <i class="far fa-star" data-rating="5"></i>
+            </div>
+        </div>
+        <div class="feedback-section">
+            <h3 id="service-heading">Service</h3>
+            <div class="stars" data-section="service">
+                <i class="far fa-star" data-rating="1"></i>
+                <i class="far fa-star" data-rating="2"></i>
+                <i class="far fa-star" data-rating="3"></i>
+                <i class="far fa-star" data-rating="4"></i>
+                <i class="far fa-star" data-rating="5"></i>
+            </div>
+        </div>
+        <div class="feedback-section">
+            <h3 id="hygiene-heading">Hygiene</h3>
+            <div class="stars" data-section="hygiene">
+                <i class="far fa-star" data-rating="1"></i>
+                <i class="far fa-star" data-rating="2"></i>
+                <i class="far fa-star" data-rating="3"></i>
+                <i class="far fa-star" data-rating="4"></i>
+                <i class="far fa-star" data-rating="5"></i>
+            </div>
+        </div>
+        <div class="feedback-section">
+            <h3 id="manager-heading">Send to Manager</h3>
+            <input type="text" class="manager-feedback-input" placeholder="Enter your feedback..." dir="auto">
+        </div>
+        <button id="send-feedback" class="btn">Send Feedback</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("D0Y19z5uwD4pZw0Co"); // Replace with your actual Public API Key from EmailJS
+        })();
+
+        document.querySelector('.back-button').addEventListener('click', function() {
+            history.back();
+        });
+
+        document.querySelectorAll('.stars').forEach(stars => {
+            stars.addEventListener('click', function(event) {
+                const clickedStar = event.target;
+                if (clickedStar.matches('i')) {
+                    const rating = parseInt(clickedStar.getAttribute('data-rating'));
+                    const section = stars.getAttribute('data-section');
+                    const allStars = stars.querySelectorAll('i');
+
+                    allStars.forEach(star => {
+                        star.classList.remove('fas');
+                        star.classList.add('far');
+                    });
+
+                    for (let i = 0; i < rating; i++) {
+                        allStars[i].classList.remove('far');
+                        allStars[i].classList.add('fas');
+                    }
+
+                    // Here you can handle sending the rating to the server or any other action based on the section and rating
+                    console.log(`Section: ${section}, Rating: ${rating}`);
+                }
+            });
+        });
+        document.getElementById('send-feedback').addEventListener('click', function() {
+    const feedbackSections = document.querySelectorAll('.feedback-section');
+    let feedbackData = {};
+
+    feedbackSections.forEach(section => {
+        const sectionName = section.querySelector('h3').textContent;
+        const rating = section.querySelectorAll('.fas').length || 0;
+        const stars = getStarIcons(rating);
+
+        if (sectionName === 'Staff') {
+            feedbackData.staff_rating = rating;
+            feedbackData.staff_stars = stars;
+        } else if (sectionName === 'Service') {
+            feedbackData.service_rating = rating;
+            feedbackData.service_stars = stars;
+        } else if (sectionName === 'Hygiene') {
+            feedbackData.hygiene_rating = rating;
+            feedbackData.hygiene_stars = stars;
+        }
+        
+        if (sectionName === 'الموظفين') {
+            feedbackData.staff_rating = rating;
+            feedbackData.staff_stars = stars;
+        } else if (sectionName === 'الخدمة') {
+            feedbackData.service_rating = rating;
+            feedbackData.service_stars = stars;
+        } else if (sectionName === 'النظافة') {
+            feedbackData.hygiene_rating = rating;
+            feedbackData.hygiene_stars = stars;
+        }
+
+        if (sectionName === 'کارمەندان') {
+            feedbackData.staff_rating = rating;
+            feedbackData.staff_stars = stars;
+        } else if (sectionName === 'خزمەتگوزاری') {
+            feedbackData.service_rating = rating;
+            feedbackData.service_stars = stars;
+        } else if (sectionName === 'نیوچە') {
+            feedbackData.hygiene_rating = rating;
+            feedbackData.hygiene_stars = stars;
+        }
+        
+        
+       
+
+     
+    });
+
+    const managerFeedback = document.querySelector('.manager-feedback-input').value;
+    feedbackData.manager_feedback = managerFeedback;
+
+    const serviceID = 'service_zg959ax'; // Replace with your actual Service ID
+    const templateID = 'template_p2dno2t'; // Replace with your actual Template ID
+
+    emailjs.send(serviceID, templateID, feedbackData)
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            alert('Feedback sent successfully!');
+            document.querySelector('.manager-feedback-input').value = ''; // Clear the input field
+        }, function(error) {
+            console.error('FAILED...', error);
+            alert('Failed to send feedback. Please try again.');
+        });
+});
+
+// Function to generate star icons based on rating
+function getStarIcons(rating) {
+    const filledStar = '★';
+    const emptyStar = '☆';
+    return filledStar.repeat(rating) + emptyStar.repeat(5 - rating);
+}
+
+        // Language change function
+        function changeLanguage() {
+            var languageSelect = document.querySelector('.language-select');
+            var selectedLanguage = languageSelect.value;
+
+            if (selectedLanguage === 'ar') {
+                // Change text to Arabic
+                document.querySelector('.feedback-header').textContent = 'تقييم';
+                document.getElementById('staff-heading').textContent = 'الموظفين';
+                document.getElementById('service-heading').textContent = 'الخدمة';
+                document.getElementById('hygiene-heading').textContent = 'النظافة';
+                document.getElementById('manager-heading').textContent = 'إرسال إلى المدير';
+                document.querySelector('.manager-feedback-input').setAttribute('placeholder', 'أدخل تعليقك...');
+
+                document.getElementById('send-feedback').textContent = 'إرسال التغذية الراجعة';
+            } else if (selectedLanguage === 'ku') {
+                // Change text to Kurdish
+                document.querySelector('.feedback-header').textContent = 'بەرنامەیەکان';
+                document.getElementById('staff-heading').textContent = 'کارمەندان';
+                document.getElementById('service-heading').textContent = 'خزمەتگوزاری';
+                document.getElementById('hygiene-heading').textContent = 'نیوچە';
+                document.getElementById('manager-heading').textContent = 'بۆ بەڕێوەبەر';
+                document.querySelector('.manager-feedback-input').setAttribute('placeholder', 'پێناسەکانت بنووس...');
+
+                document.getElementById('send-feedback').textContent = 'ناردنی بەرنامە';
+            } else {
+                // Change text back to English
+                document.querySelector('.feedback-header').textContent = 'Feedback';
+                document.getElementById('staff-heading').textContent = 'Staff';
+                document.getElementById('service-heading').textContent = 'Service';
+                document.getElementById('hygiene-heading').textContent = 'Hygiene';
+                document.getElementById('manager-heading').textContent = 'Send to Manager';
+                document.querySelector('.manager-feedback-input').setAttribute('placeholder', 'Enter your feedback...');
+
+                document.getElementById('send-feedback').textContent = 'Send Feedback';
+            }
+        }
+    </script>
+</body>
+</html>
